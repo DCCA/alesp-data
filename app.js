@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const parseString = require('xml2js').parseString;
 const mongoose = require('mongoose');
 const path = require('path');
+const fs = require('fs');
 
 // Models
 const Deputado = require('./models/deputados');
@@ -13,15 +14,16 @@ const Deputado = require('./models/deputados');
 const app = express();
 
 // App config
+app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.json());
 app.use(express.static('client/build'));
-app.get('*', (req, res) => {
-	res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-});
 
 // Routes
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+app.get('*', (req, res) => {
+	res.render(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+});
 
-// Open server
 // Add db connection
 mongoose
 	.connect(
@@ -30,7 +32,9 @@ mongoose
 	)
 	.then((res) => {
 		console.log('Connected to DB!');
-		app.listen(process.env.PORT || 3000);
+		// Open server
+		app.listen(process.env.PORT || 8080);
+		console.log(`Server started!`);
 		fetch('http://www.al.sp.gov.br/repositorioDados/deputados/deputados.xml')
 			.then((res) => {
 				return res.text();
@@ -86,4 +90,6 @@ mongoose
 				console.log(err);
 			});
 	})
-	.catch();
+	.catch((err) => {
+		console.log(err);
+	});
