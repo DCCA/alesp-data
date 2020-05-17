@@ -11,7 +11,7 @@ exports.getDeputados = async (req, res, next) => {
 
 exports.getDeputado = async (req, res, next) => {
 	try {
-		const deputadoId = req.body.id;
+		const deputadoId = req.params.id;
 		if (!deputadoId) {
 			return res.status(401).json({
 				message: 'Not id in the request',

@@ -6,6 +6,6 @@ const router = express.Router();
 const deputadosControllers = require('../controllers/deputados');
 // Routes
 router.get('/get-deputados', deputadosControllers.getDeputados);
-router.get('/get-deputado', deputadosControllers.getDeputado);
+router.get('/get-deputado/:id', deputadosControllers.getDeputado);
 
 module.exports = router;
