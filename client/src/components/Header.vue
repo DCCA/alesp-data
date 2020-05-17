@@ -31,4 +31,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+nav a {
+	color: #1b3780;
+	text-decoration: none;
+	&:link {
+		color: #1b3780;
+	}
+	&:hover {
+		color: #98d1f3;
+	}
+}
+</style>

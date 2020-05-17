@@ -18,6 +18,19 @@ const app = express();
 // App config
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+// CORS Config
+app.use((req, res, next) => {
+	// Set domains
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	// Set the methods
+	res.setHeader(
+		'Access-Control-Allow-Methods',
+		'GET, POST, PUT, PATCH, DELETE'
+	);
+	//
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+	next();
+});
 
 // Routes
 app.use('/api', deputadosRoutes);

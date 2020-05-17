@@ -2,22 +2,31 @@
 	<div id="app">
 		<app-header></app-header>
 		<router-view />
+		<app-footer></app-footer>
 	</div>
 </template>
 
 <script>
 import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
 
 export default {
 	components: {
 		appHeader: Header,
+		appFooter: Footer,
 	},
 };
 </script>
 
 <style lang="scss">
+@import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css');
 @import url('../node_modules/basscss/css/basscss.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Kelly+Slab&family=Play&display=swap');
+
+body {
+	background-color: #f6f6f4;
+	font-family: 'Play';
+}
 
 a.logo {
 	font-family: 'Kelly Slab', cursive;
