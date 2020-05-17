@@ -3,15 +3,9 @@ const express = require('express');
 // Start router
 const router = express.Router();
 // Import models
-const Deputados = require('../models/deputados');
+const deputadosControllers = require('../controllers/deputados');
 // Routes
-router.get('/get-deputados', async (req, res, next) => {
-	try {
-		const deputados = await Deputados.find();
-		res.status(200).json(deputados);
-	} catch (error) {
-		console.log(error);
-	}
-});
+router.get('/get-deputados', deputadosControllers.getDeputados);
+router.get('/get-deputado', deputadosControllers.getDeputado);
 
 module.exports = router;

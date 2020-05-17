@@ -8,6 +8,7 @@
 				:name="deputado.nomeparlamentar"
 				:party="deputado.partido"
 				:imageUrl="deputado.pathfoto"
+				:id="deputado._id"
 			></app-card>
 		</div>
 	</section>

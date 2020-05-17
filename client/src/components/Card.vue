@@ -1,5 +1,5 @@
 <template>
-	<div class="col-4 col">
+	<div class="sm-col sm-col-12 md-col-4 col-12 col">
 		<div class="card flex m1  rounded p2">
 			<div
 				:style="{ backgroundImage: `url(${imageUrl})` }"
@@ -12,7 +12,12 @@
 					<h2 class="h3 py1">{{ name }}</h2>
 					<p class="py1">{{ party }}</p>
 				</div>
-				<button class="mt1 self-strech">Ver Mais</button>
+				<router-link
+					tag="button"
+					class="mt1 self-strech"
+					:to="`/deputado/${id}`"
+					>Ver Mais</router-link
+				>
 			</div>
 		</div>
 	</div>
@@ -29,11 +34,11 @@ export default {
 			type: String,
 			required: true,
 		},
-		bio: {
+		imageUrl: {
 			type: String,
 			required: true,
 		},
-		imageUrl: {
+		id: {
 			type: String,
 			required: true,
 		},

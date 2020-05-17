@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import Deputados from '../views/Deputados.vue';
+import SingleDeputado from '../views/SingleDeputado.vue';
 
 Vue.use(VueRouter);
 
@@ -22,11 +24,12 @@ const routes = [
 	{
 		path: '/deputados',
 		name: 'Deputados',
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
-		component: () =>
-			import(/* webpackChunkName: "about" */ '../views/Deputados.vue'),
+		component: Deputados,
+	},
+	{
+		path: '/deputado/:id',
+		name: 'SingleDeputado',
+		component: SingleDeputado,
 	},
 ];
 
