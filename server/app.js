@@ -8,6 +8,7 @@ const path = require('path');
 
 // Models
 const Deputado = require('./models/deputados');
+const Despesa = require('./models/depesas');
 
 // Routes
 const deputadosRoutes = require('./routes/deputados');
@@ -104,6 +105,57 @@ mongoose
 				console.log(err);
 			});
 	})
+	// .then((res) => {
+	// 	console.log('start');
+	// 	fetch(
+	// 		'http://www.al.sp.gov.br/repositorioDados/deputados/despesas_gabinetes.xml'
+	// 	)
+	// 		.then((res) => {
+	// 			console.log('result');
+	// 			console.log(res);
+	// 			return res.text();
+	// 		})
+	// 		.then((body) => {
+	// 			console.log('started parsing');
+	// 			let parsedXml;
+	// 			parseString(
+	// 				body,
+	// 				{
+	// 					tagNameProcessors: [
+	// 						function (name) {
+	// 							return name.toLowerCase();
+	// 						},
+	// 					],
+	// 					explicitArray: false,
+	// 				},
+	// 				function (err, result) {
+	// 					parsedXml = result;
+	// 				}
+	// 			);
+	// 			return parsedXml;
+	// 		})
+	// 		.then((data) => {
+	// 			console.log('got the data');
+	// 			const despesasArray = data.despesas.despesa;
+	// 			console.log(despesasArray);
+	// 			despesasArray.forEach((desp) => {
+	// 				const novaDesp = new Despesa({
+	// 					deputado: desp.deputado,
+	// 					matricula: desp.matricula,
+	// 					ano: desp.ano,
+	// 					mes: desp.mes,
+	// 					cnpj: desp.cnpj,
+	// 					fornecedor: desp.fornecedor,
+	// 					tipo: desp.tipo,
+	// 					valor: desp.valor,
+	// 				});
+	// 				novaDesp.save();
+	// 			});
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 		});
+	// })
 	.catch((err) => {
 		console.log(err);
 	});
