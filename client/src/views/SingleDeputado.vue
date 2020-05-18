@@ -2,30 +2,36 @@
 	<div class="container clearfix">
 		<div
 			:style="{ backgroundImage: `url(${deputado.pathfoto})` }"
-			class="deputado-photo rounded col-6"
+			class="deputado-photo rounded col col-4"
 		></div>
-		<div class="col-6">
-			<h1 class="h1">{{ deputado.nomeparlamentar }}</h1>
+		<div class="col col-6 p2">
+			<h1 class="h1 py1">{{ deputado.nomeparlamentar }}</h1>
+			<p class="h4 py1">Partido: {{ deputado.partido }}</p>
+			<p class="h4 py1">E-mail: {{ deputado.email }}</p>
 		</div>
-		<p v-html="deputado.biografia"></p>
+		<div class="bio col col-12 my2">
+			<div class="bio-text" v-html="bioSanitized"></div>
+		</div>
 	</div>
 </template>
 
 <script>
+import sanitizeHtml from 'sanitize-html';
+
 export default {
 	data() {
 		return {
-			deputado: {},
+			bioSanitized: '',
 		};
 	},
 	computed: {
-		thereIsProduct() {
+		deputado() {
 			return this.$store.state.deputado;
 		},
 	},
 	watch: {
-		thereIsProduct(newState) {
-			this.deputado = newState.deputado;
+		deputado() {
+			this.bioSanitized = sanitizeHtml(this.$store.state.deputado.biografia);
 		},
 	},
 	beforeMount() {
@@ -37,9 +43,13 @@ export default {
 
 <style lang="scss" scoped>
 .deputado-photo {
-	height: 10rem;
-	width: 10rem;
+	height: 18rem;
 	background-size: cover;
 	background-position: center;
+}
+.bio-text {
+	p {
+		padding: 1rem 0;
+	}
 }
 </style>

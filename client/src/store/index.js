@@ -7,13 +7,15 @@ export default new Vuex.Store({
 	state: {
 		deputados: [],
 		deputado: [],
+		error: '',
+		isLoading: false,
 	},
 	mutations: {
 		setDeputados(state, data) {
-			state.deputados = data;
+			state.deputados = data.data;
 		},
 		setDeputado(state, data) {
-			state.deputado = data;
+			state.deputado = data.deputado;
 		},
 	},
 	actions: {
@@ -28,10 +30,11 @@ export default new Vuex.Store({
 					});
 				})
 				.catch((err) => {
-					console.log(err);
+					return Promise.reject(err);
 				});
 		},
 		getDeputado(context, id) {
+			this.isLoading = true;
 			fetch(`http://localhost:3000/api/get-deputado/${id}`)
 				.then((res) => {
 					return res.json();
@@ -42,7 +45,7 @@ export default new Vuex.Store({
 					});
 				})
 				.catch((err) => {
-					console.log(err);
+					return Promise.reject(err);
 				});
 		},
 	},
