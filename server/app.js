@@ -12,6 +12,10 @@ const Despesa = require('./models/depesas');
 
 // Routes
 const deputadosRoutes = require('./routes/deputados');
+const despesasRoutes = require('./routes/despesas');
+
+// Import cron jobs
+const job = require('./cron');
 
 // Start app
 const app = express();
@@ -34,7 +38,8 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/api', deputadosRoutes);
+app.use('/api/deputados', deputadosRoutes);
+app.use('/api/despesas', despesasRoutes);
 app.use('*', (req, res) => {
 	res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'));
 });
@@ -50,60 +55,60 @@ mongoose
 		// Open server
 		app.listen(process.env.PORT || 3000);
 		console.log(`Server started!`);
-		fetch('http://www.al.sp.gov.br/repositorioDados/deputados/deputados.xml')
-			.then((res) => {
-				return res.text();
-			})
-			.then((body) => {
-				let parsedXml;
-				parseString(
-					body,
-					{
-						tagNameProcessors: [
-							function (name) {
-								return name.toLowerCase();
-							},
-						],
-						explicitArray: false,
-					},
-					function (err, result) {
-						parsedXml = result;
-					}
-				);
-				return parsedXml;
-			})
-			.then((data) => {
-				const deputadosArray = data.deputados.deputado;
-				deputadosArray.forEach((dep) => {
-					// const dep = deputadosArray[0];
-					Deputado.findOne({ iddeputado: dep.iddeputado }).then((result) => {
-						if (!result) {
-							console.log('No deputado. Save one');
-							const deputado = new Deputado({
-								iddeputado: dep.iddeputado,
-								idspl: dep.idspl,
-								idua: dep.idua,
-								situacao: dep.situacao,
-								andar: dep.andar,
-								aniversario: dep.aniversario,
-								biografia: dep.biografia,
-								email: dep.email,
-								matricula: dep.matricula,
-								nomeparlamentar: dep.nomeparlamentar,
-								pathfoto: dep.pathfoto,
-								placaveiculo: dep.placaveiculo,
-								sala: dep.sala,
-								partido: dep.partido,
-								telefone: dep.telefone,
-							});
-							deputado.save();
-						}
-					});
-				});
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		// fetch('http://www.al.sp.gov.br/repositorioDados/deputados/deputados.xml')
+		// 	.then((res) => {
+		// 		return res.text();
+		// 	})
+		// 	.then((body) => {
+		// 		let parsedXml;
+		// 		parseString(
+		// 			body,
+		// 			{
+		// 				tagNameProcessors: [
+		// 					function (name) {
+		// 						return name.toLowerCase();
+		// 					},
+		// 				],
+		// 				explicitArray: false,
+		// 			},
+		// 			function (err, result) {
+		// 				parsedXml = result;
+		// 			}
+		// 		);
+		// 		return parsedXml;
+		// 	})
+		// 	.then((data) => {
+		// 		const deputadosArray = data.deputados.deputado;
+		// 		deputadosArray.forEach((dep) => {
+		// 			// const dep = deputadosArray[0];
+		// 			Deputado.findOne({ iddeputado: dep.iddeputado }).then((result) => {
+		// 				if (!result) {
+		// 					console.log('No deputado. Save one');
+		// 					const deputado = new Deputado({
+		// 						iddeputado: dep.iddeputado,
+		// 						idspl: dep.idspl,
+		// 						idua: dep.idua,
+		// 						situacao: dep.situacao,
+		// 						andar: dep.andar,
+		// 						aniversario: dep.aniversario,
+		// 						biografia: dep.biografia,
+		// 						email: dep.email,
+		// 						matricula: dep.matricula,
+		// 						nomeparlamentar: dep.nomeparlamentar,
+		// 						pathfoto: dep.pathfoto,
+		// 						placaveiculo: dep.placaveiculo,
+		// 						sala: dep.sala,
+		// 						partido: dep.partido,
+		// 						telefone: dep.telefone,
+		// 					});
+		// 					deputado.save();
+		// 				}
+		// 			});
+		// 		});
+		// 	})
+		// .catch((err) => {
+		// 	console.log(err);
+		// });
 	})
 	// .then((res) => {
 	// 	console.log('start');

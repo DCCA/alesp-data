@@ -2,8 +2,11 @@
 	<nav class="container flex items-center">
 		<router-link tag="a" to="/" class="logo">AlespData</router-link>
 		<div class="nav-left mx1 px1 flex-auto">
-			<router-link tag="a" class="navbar-item" to="/deputados"
+			<router-link tag="a" class="navbar-item mx1" to="/deputados"
 				>Deputados</router-link
+			>
+			<router-link tag="a" class="navbar-item mx1" to="/gastos"
+				>Gastos</router-link
 			>
 		</div>
 		<div class="nav-right ">

@@ -59,6 +59,9 @@ const deputadoSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	despesasTotais: {
+		type: Number,
+	},
 });
 
 module.exports = mongoose.model('Deputado', deputadoSchema);

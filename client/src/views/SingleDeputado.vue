@@ -1,13 +1,14 @@
 <template>
 	<div class="container clearfix">
 		<div
-			:style="{ backgroundImage: `url(${deputado.pathfoto})` }"
+			:style="{ backgroundImage: `url(${deputado.deputado.pathfoto})` }"
 			class="deputado-photo rounded col col-4"
 		></div>
 		<div class="col col-6 p2">
-			<h1 class="h1 py1">{{ deputado.nomeparlamentar }}</h1>
-			<p class="h4 py1">Partido: {{ deputado.partido }}</p>
-			<p class="h4 py1">E-mail: {{ deputado.email }}</p>
+			<h1 class="h1 py1">{{ deputado.deputado.nomeparlamentar }}</h1>
+			<p class="h4 py1">Partido: {{ deputado.deputado.partido }}</p>
+			<p class="h4 py1">E-mail: {{ deputado.deputado.email }}</p>
+			<p class="h4 py1">Total Gasto: R$ {{ valueFormated }}</p>
 		</div>
 		<div class="bio col col-12 my2">
 			<div class="bio-text" v-html="bioSanitized"></div>
@@ -17,21 +18,33 @@
 
 <script>
 import sanitizeHtml from 'sanitize-html';
+import numeral from 'numeral';
 
 export default {
 	data() {
 		return {
 			bioSanitized: '',
+			valueFormated: 0,
 		};
 	},
 	computed: {
 		deputado() {
 			return this.$store.state.deputado;
 		},
+		value() {
+			return this.$store.state.deputado.value;
+		},
 	},
 	watch: {
 		deputado() {
-			this.bioSanitized = sanitizeHtml(this.$store.state.deputado.biografia);
+			this.bioSanitized = sanitizeHtml(
+				this.$store.state.deputado.deputado.biografia
+			);
+		},
+		value() {
+			this.valueFormated = numeral(
+				this.$store.state.deputado.value[0].totalValue
+			).format('0.0[,]0');
 		},
 	},
 	beforeMount() {

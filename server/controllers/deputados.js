@@ -1,4 +1,5 @@
 const Deputados = require('../models/deputados');
+const Despesas = require('../models/depesas');
 
 exports.getDeputados = async (req, res, next) => {
 	try {
@@ -14,7 +15,7 @@ exports.getDeputado = async (req, res, next) => {
 		const deputadoId = req.params.id;
 		if (!deputadoId) {
 			return res.status(401).json({
-				message: 'Not id in the request',
+				message: 'No id in the request',
 			});
 		}
 		const deputado = await Deputados.findById(deputadoId);
@@ -23,7 +24,17 @@ exports.getDeputado = async (req, res, next) => {
 				message: 'No deputado found',
 			});
 		}
-		res.status(200).json(deputado);
+		const value = await Despesas.aggregate([
+			{
+				$addFields: {
+					totalValue: { $toDouble: '$valor' },
+					year: { $toInt: '$ano' },
+				},
+			},
+			{ $match: { matricula: deputado.matricula, year: { $gt: 2018 } } },
+			{ $group: { _id: null, totalValue: { $sum: '$totalValue' } } },
+		]);
+		res.status(200).json({ deputado: deputado, value: value });
 	} catch (error) {
 		console.log(error);
 	}

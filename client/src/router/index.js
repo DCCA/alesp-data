@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Deputados from '../views/Deputados.vue';
 import SingleDeputado from '../views/SingleDeputado.vue';
+import Gastos from '../views/Gastos.vue';
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,11 @@ const routes = [
 		path: '/deputado/:id',
 		name: 'SingleDeputado',
 		component: SingleDeputado,
+	},
+	{
+		path: '/gastos',
+		name: 'Gastos',
+		component: Gastos,
 	},
 ];
 

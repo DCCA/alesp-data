@@ -8,6 +8,7 @@ export default new Vuex.Store({
 		deputados: [],
 		deputado: [],
 		error: '',
+		despesas: null,
 		isLoading: false,
 	},
 	mutations: {
@@ -17,10 +18,13 @@ export default new Vuex.Store({
 		setDeputado(state, data) {
 			state.deputado = data.deputado;
 		},
+		setDespesas(state, data) {
+			state.despesas = data;
+		},
 	},
 	actions: {
 		getDeputados(context) {
-			fetch('http://localhost:3000/api/get-deputados')
+			fetch('http://localhost:3000/api/deputados/get-deputados')
 				.then((res) => {
 					return res.json();
 				})
@@ -35,13 +39,27 @@ export default new Vuex.Store({
 		},
 		getDeputado(context, id) {
 			this.isLoading = true;
-			fetch(`http://localhost:3000/api/get-deputado/${id}`)
+			fetch(`http://localhost:3000/api/deputados/get-deputado/${id}`)
 				.then((res) => {
 					return res.json();
 				})
 				.then((data) => {
 					context.commit('setDeputado', {
 						deputado: data,
+					});
+				})
+				.catch((err) => {
+					return Promise.reject(err);
+				});
+		},
+		getDespesas(context) {
+			fetch('http://localhost:3000/api/despesas/get-despesas')
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					context.commit('setDespesas', {
+						data: data,
 					});
 				})
 				.catch((err) => {
