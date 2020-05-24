@@ -19,7 +19,7 @@
       </p>
       <p class="h4 py1">
         <span class="bold">Total Gasto:</span>
-        R$ {{ formatNumber(deputado.value[0].totalValue) }}
+        R$ {{ formatNumber(deputado.deputado.despesasTotais) }}
       </p>
       <p class="h4 py1">
         <span class="bold pb1">Areas de Atuacao:</span>
