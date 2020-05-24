@@ -18,6 +18,9 @@ export default new Vuex.Store({
 		setDeputado(state, data) {
 			state.deputado = data.deputado;
 		},
+		eraseDeputado(state) {
+			state.deputado = [];
+		},
 		setDespesas(state, data) {
 			state.despesas = data;
 		},
@@ -38,7 +41,7 @@ export default new Vuex.Store({
 				});
 		},
 		getDeputado(context, id) {
-			this.isLoading = true;
+			context.commit('eraseDeputado');
 			fetch(`http://localhost:3000/api/deputados/get-deputado/${id}`)
 				.then((res) => {
 					return res.json();

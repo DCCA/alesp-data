@@ -51,5 +51,6 @@ const job = new CronJob(
 	},
 	{ start: true }
 );
+job.start();
 
 module.exports = job;
