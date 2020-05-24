@@ -7,6 +7,7 @@ exports.getDespesas = async (req, res, next) => {
 		const graphData = deputados.map((deputado) => {
 			return {
 				deputadoName: deputado.nomeparlamentar,
+				partido: deputado.partido,
 				despesasTotais: deputado.despesasTotais,
 			};
 		});

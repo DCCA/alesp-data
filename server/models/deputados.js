@@ -59,9 +59,45 @@ const deputadoSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	areaDeAtuacao: [
+		{
+			ordem: {
+				type: Number,
+			},
+			areaDeAtuacao: {
+				type: String,
+			},
+		},
+	],
+	baseEleitoral: [
+		{
+			ordem: {
+				type: Number,
+			},
+			baseEleitoral: {
+				type: String,
+			},
+		},
+	],
 	despesasTotais: {
 		type: Number,
 	},
+	despesas: [
+		{
+			tipo: {
+				type: String,
+			},
+			ano: {
+				type: Number,
+			},
+			mes: {
+				type: String,
+			},
+			valorTotal: {
+				type: Number,
+			},
+		},
+	],
 });
 
 module.exports = mongoose.model('Deputado', deputadoSchema);

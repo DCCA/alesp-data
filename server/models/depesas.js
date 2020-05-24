@@ -11,7 +11,7 @@ const despesaSchema = new Schema({
 		required: true,
 	},
 	ano: {
-		type: String,
+		type: Number,
 		required: true,
 	},
 	mes: {
@@ -28,7 +28,7 @@ const despesaSchema = new Schema({
 		type: String,
 	},
 	valor: {
-		type: String,
+		type: Number,
 		required: true,
 	},
 });

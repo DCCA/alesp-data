@@ -3,7 +3,7 @@ const Deputados = require('./models/deputados');
 const Despesas = require('./models/depesas');
 
 const CronJob = require('cron').CronJob;
-var job = new CronJob(
+const job = new CronJob(
 	'* 0 * * * *',
 	() => {
 		mongoose
@@ -40,7 +40,7 @@ var job = new CronJob(
 								value[0] !== undefined ? value[0].totalValue : 0;
 							deputado.despesasTotais = updatedDespesas;
 							const result = await deputado.save();
-							console.log(result);
+							console.log(`Updated ${deputado.nomeparlamentar}`);
 						});
 					})
 					.catch((err) => console.log(err));
@@ -48,10 +48,8 @@ var job = new CronJob(
 			.catch((err) => {
 				console.log(err);
 			});
-		console.log('You will see this message every second');
 	},
 	{ start: true }
 );
-job.start();
 
 module.exports = job;
