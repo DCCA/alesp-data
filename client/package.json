@@ -12,7 +12,7 @@
     "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
     "numeral": "^2.0.6",
-    "sanitize-html": "^1.23.0",
+    "sanitize-html": "^2.3.2",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.0",
     "vue-router": "^3.1.6",
